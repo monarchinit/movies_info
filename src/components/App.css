@@ -1,0 +1,15 @@
+.appContainer {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #619f971c;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  width: 75%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
