@@ -13,3 +13,40 @@ export const getAllMoviesApi = async () => {
     throw new Error(error);
   }
 };
+
+export const getMovieWithIdApi = async (id) => {
+  try {
+    const { data } = await axios.get(`/movies/${id}`);
+    return data.movie;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+};
+
+export const deleteMovieWithIdApi = async (id) => {
+  try {
+    const { data } = await axios.delete(`/movies/${id}`);
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+};
+
+export const addMovieApi = async (movie) => {
+  try {
+    const { data } = await axios.post(
+      `/movies`,
+      !movie.length
+        ? {
+            ...movie,
+          }
+        : [...movie]
+    );
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+};

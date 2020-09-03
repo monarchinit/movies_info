@@ -1,0 +1,17 @@
+.wrapperButton {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px auto;
+}
+
+.starWrapper {
+  display: flex;
+  align-items: flex-end;
+}
+
+.tabs {
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 600;
+}

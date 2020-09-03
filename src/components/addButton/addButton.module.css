@@ -1,0 +1,28 @@
+.addButton {
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  bottom: 20%;
+  right: 50px;
+  background-color: #2f4ae1c9;
+  border-radius: 50%;
+  font-size: 80px;
+  cursor: pointer;
+  box-shadow: 0px 4px 22px #79555559;
+  transition: 0.5s ease;
+}
+.addStar:hover,
+.addButton:hover {
+  transform: scale(1.1);
+}
+
+.addStar {
+  width: 30px;
+  height: 30px;
+  background-color: #2f4ae1c9;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0px 2px 11px #79555559;
+  transition: 0.5s ease;
+  margin-right: 10px;
+}

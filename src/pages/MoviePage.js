@@ -1,7 +1,8 @@
 import React from "react";
+import MoiveInfo from "../components/movieInfo/MoiveInfo";
 
-const MoviePage = () => {
-  return <h1>Movie</h1>;
+const MoviePage = (props) => {
+  return <MoiveInfo {...props}></MoiveInfo>;
 };
 
 export default MoviePage;
