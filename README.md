@@ -2,7 +2,7 @@
 
 `quick start guide`
 
-        **This is an application for working with information about the movie.**
+        **This is an application for working with information about the movie.
         This application is written in the library `React` in Front-end part and `Express`, `Mangooose` in Back-end. 
         On Front-end a am use libraries such us `Redux`, `react-router-dom`, `redux-thunk` and `mammoth` for parsing 
         document such us .docx .
