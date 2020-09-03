@@ -84,7 +84,7 @@ const AddMovieModal = ({ setAddModalOpen, addMovie }) => {
       className="containerModal"
     >
       <div className="wrapperModal">
-        <h2>You can add a movie here!</h2>
+        <h2>You can add a movie or DOCUMENT with movies here!</h2>
         <div>
           <span
             className={css.tabs}
