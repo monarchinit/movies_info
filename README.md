@@ -9,10 +9,10 @@
           [https://github.com/monarchinit/movies_info_server](https://github.com/monarchinit/movies_info_server)
          All you need to do to run the application is to clone this repository on your computer and further in the description:
          
-         `git clone https://github.com/monarchinit/movies_info.git`
-         `cd movies_info/`
-         `yarn install`
-         `yarn start`
+         git clone https://github.com/monarchinit/movies_info.git
+         cd movies_info/
+         yarn install
+         yarn start
 
    How to use the browser 
    
