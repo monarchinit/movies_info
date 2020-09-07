@@ -30,3 +30,8 @@
   padding: 5px;
   border-radius: 5px;
 }
+
+.navLink,
+.navLink:visited {
+  color: royalblue;
+}
