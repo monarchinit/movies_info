@@ -9,7 +9,11 @@ import {
 import Modal from "../modal/Modal";
 import css from "./AddMovieModal.module.css";
 import AddButton from "../addButton/AddButton";
-import { getFormData } from "../../helpers/helpers";
+import {
+  getFormData,
+  getReadyForReguestMovies,
+  agregateTextFromDoc,
+} from "../../helpers/helpers";
 import { connect } from "react-redux";
 import { addMovie } from "../../redux/operations";
 import mammoth from "mammoth";
@@ -18,9 +22,6 @@ import Tips from "../tips/Tips";
 const ValidationTextField = withStyles({
   root: {
     marginBottom: "10px",
-    "& input:invalid + fieldset": {
-      borderColor: "red",
-    },
     "& input:invalid:focus + fieldset": {
       borderColor: "red",
     },
@@ -29,9 +30,6 @@ const ValidationTextField = withStyles({
 
 const ValidationSelectField = withStyles({
   root: {
-    "& select:invalid ~ fieldset": {
-      borderColor: "red",
-    },
     "& input:invalid:focus ~ fieldset": {
       borderColor: "red",
     },
@@ -68,7 +66,6 @@ const AddMovieModal = ({ setAddModalOpen, addMovie }) => {
 
   const onHandleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target, "e.target");
     const result = getFormData(e.target);
     addMovie(result, setAddModalOpen);
   };
@@ -76,48 +73,35 @@ const AddMovieModal = ({ setAddModalOpen, addMovie }) => {
   const handleSubmitFile = async (e) => {
     e.preventDefault();
     const file = e.target.file.files[0];
-    let reader = new FileReader();
-    reader.onload = function () {
-      const data = reader.result;
+    if (file.type === "text/plain") {
       let arrMovies = [{}];
-      mammoth
-        .convertToHtml({ arrayBuffer: data })
-        .then(function (result) {
-          var html = result.value; // The generated HTML
-          const movies = html
-            .split("<p>")
-            .join("")
-            .split("</p>")
-            .map((e) => {
-              const el = e.split(":");
-              if (el[0] in arrMovies[arrMovies.length - 1]) {
-                arrMovies.push({});
-              }
-              const obj = arrMovies[arrMovies.length - 1];
-              obj[el[0]] = el[1];
-              if (el[2]) {
-                obj[el[0]] = obj[el[0]] + el[2];
-              }
-              return obj;
-            });
-          const redMovies = arrMovies
-            .map(function (e) {
-              if (!e.Title) {
-                return undefined;
-              }
-              return {
-                title: e["Title"].trim(),
-                year: e["Release Year"].trim(),
-                format: e["Format"].trim(),
-                stars: e["Stars"].split(", "),
-              };
-            })
-            .filter((e) => !!e?.title);
-          addMovie(redMovies, setAddModalOpen);
-        })
-        .done();
-    };
-    await reader.readAsArrayBuffer(file);
+      var reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = function (e) {
+        agregateTextFromDoc(reader.result.split("\n"), arrMovies);
+
+        addMovie(getReadyForReguestMovies(arrMovies), setAddModalOpen);
+      };
+    } else {
+      let reader = new FileReader();
+      reader.onload = function () {
+        const data = reader.result;
+        let arrMovies = [{}];
+        mammoth
+          .convertToHtml({ arrayBuffer: data })
+          .then(function (result) {
+            var html = result.value;
+            agregateTextFromDoc(
+              html.split("<p>").join("").split("</p>"),
+              arrMovies
+            );
+
+            addMovie(getReadyForReguestMovies(arrMovies), setAddModalOpen);
+          })
+          .done();
+      };
+      reader.readAsArrayBuffer(file);
+    }
   };
 
   return (

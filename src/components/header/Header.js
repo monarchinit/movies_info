@@ -4,6 +4,7 @@ import css from "./header.module.css";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { setSearch, setSearchFilter } from "../../redux/actionCreator";
+import Tips from "../tips/Tips";
 
 const Header = ({
   setSearch,
@@ -47,6 +48,13 @@ const Header = ({
             <option value="title">Search by title</option>
             <option value="name">Search by star</option>
           </Select>
+          <Tips>
+            <div className="tooltip">
+              <h2 className="popper">
+                Here you can search by movie title and actor name.
+              </h2>
+            </div>
+          </Tips>
         </div>
       </div>
     </header>

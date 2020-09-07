@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import MainItems from "../mainItems/MainItems";
 import { Checkbox, FormGroup, FormControlLabel } from "@material-ui/core";
+import Tips from "../tips/Tips";
 
 const enumSortState = {
   usual: "usual",
@@ -95,6 +96,14 @@ class MainList extends Component {
                 }
                 label="reverse"
               />
+              <Tips>
+                <div className="tooltip">
+                  <h2 className="popper">
+                    Here you can sort the list alphabetically and in reverse
+                    order.
+                  </h2>
+                </div>
+              </Tips>
             </FormGroup>
             <MainItems renderMovies={arr}></MainItems>
           </>

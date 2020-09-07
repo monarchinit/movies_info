@@ -65,7 +65,6 @@ export const addMovie = (movie, setAddModalOpen) => async (
   dispatch(fetchStart());
   try {
     const response = await addMovieApi(movie);
-    console.log(response, "response");
     if (response.result) {
       if (response.movie.length) {
         dispatch(addMoviesSuccess(response.movie));
