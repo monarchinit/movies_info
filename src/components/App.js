@@ -35,7 +35,6 @@ function App({ getAllMovies, isLoading, error }) {
       )}
       {isLoading && <LoaderComponent></LoaderComponent>}
       {error && <ErrorComponent error={error}></ErrorComponent>}
-      {/* <Footer /> */}
     </div>
   );
 }

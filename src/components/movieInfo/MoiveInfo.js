@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { getMovieWithId, deleteMovieWithId } from "../../redux/operations";
 import { clearActiveMovie } from "../../redux/actionCreator";
 import css from "./movieInfo.module.css";
+import Modal from "../modal/Modal";
 const MoiveInfo = ({
   history,
   match,
@@ -12,6 +13,7 @@ const MoiveInfo = ({
   clearActiveMovie,
   movie,
 }) => {
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   useEffect(() => {
     getMovieWithId(match.params.id);
     return () => {
@@ -51,13 +53,45 @@ const MoiveInfo = ({
             </li>
           </ul>
           <Button
-            onClick={() => deleteMovieWithId(movie._id, history)}
+            onClick={() => setDeleteModalOpen(true)}
             variant="contained"
             color="secondary"
           >
             DELETE
           </Button>
         </>
+      )}
+      {deleteModalOpen && (
+        <Modal
+          onHandleClick={(e) => {
+            if (e.target?.dataset?.container === "modal") {
+              setDeleteModalOpen(false);
+            }
+          }}
+        >
+          <>
+            <h2>Are you sure you want delete movie?</h2>
+            <div className={css.wrapperButton}>
+              <Button
+                variant="contained"
+                onClick={() => setDeleteModalOpen(false)}
+                color="secondary"
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                onClick={() => {
+                  deleteMovieWithId(movie._id, history);
+                }}
+                color="primary"
+              >
+                Delete
+              </Button>
+            </div>
+          </>
+        </Modal>
       )}
     </div>
   );

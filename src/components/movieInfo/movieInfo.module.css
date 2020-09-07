@@ -5,3 +5,10 @@
 .wrapper {
   margin-bottom: 80px;
 }
+
+.wrapperButton {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px auto;
+}

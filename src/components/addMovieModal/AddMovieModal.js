@@ -6,6 +6,7 @@ import {
   InputLabel,
   withStyles,
 } from "@material-ui/core";
+import Modal from "../modal/Modal";
 import css from "./AddMovieModal.module.css";
 import AddButton from "../addButton/AddButton";
 import { getFormData } from "../../helpers/helpers";
@@ -120,77 +121,97 @@ const AddMovieModal = ({ setAddModalOpen, addMovie }) => {
   };
 
   return (
-    <div
-      onClick={(e) => {
-        if (e.target?.className === "containerModal") {
+    <Modal
+      onHandleClick={(e) => {
+        if (e.target?.dataset?.container === "modal") {
           setAddModalOpen(false);
         }
       }}
-      className="containerModal"
     >
-      <div className="wrapperModal">
-        <h2 className={css.title}>
-          You can add a movie or DOCUMENT with movies here!
-        </h2>
-        <div className={css.tabsWrapper}>
-          <span
-            className={css.tabs}
-            style={{ color: docTab ? "gray" : "black" }}
-            onClick={() => setDocTab(false)}
+      <h2 className={css.title}>
+        You can add a movie or DOCUMENT with movies here!
+      </h2>
+      <div className={css.tabsWrapper}>
+        <span
+          className={css.tabs}
+          style={{ color: docTab ? "gray" : "black" }}
+          onClick={() => setDocTab(false)}
+        >
+          movie
+        </span>
+        <span> / </span>
+        <span
+          className={css.tabs}
+          style={{ color: !docTab ? "gray" : "black" }}
+          onClick={() => setDocTab(true)}
+        >
+          upload document
+        </span>
+      </div>
+      {!docTab ? (
+        <form
+          style={{ display: "flex", flexDirection: "column" }}
+          onSubmit={onHandleSubmit}
+        >
+          <ValidationTextField
+            error={false}
+            required
+            variant="outlined"
+            id="title"
+            label="Title"
+            className={css.formItem}
+          />
+          <ValidationTextField
+            type="number"
+            inputProps={{ max: "2021", min: "1895" }}
+            required
+            variant="outlined"
+            id="year"
+            label="Release Year"
+            className={css.formItem}
+          />
+          <InputLabel htmlFor="format">Format</InputLabel>
+          <ValidationSelectField
+            native
+            required
+            variant="outlined"
+            size="small"
+            inputProps={{
+              name: "format",
+              id: "format",
+            }}
+            className={css.formItem}
           >
-            movie
-          </span>
-          <span> / </span>
-          <span
-            className={css.tabs}
-            style={{ color: !docTab ? "gray" : "black" }}
-            onClick={() => setDocTab(true)}
-          >
-            upload document
-          </span>
-        </div>
-        {!docTab ? (
-          <form
-            style={{ display: "flex", flexDirection: "column" }}
-            onSubmit={onHandleSubmit}
-          >
-            <ValidationTextField
-              error={false}
-              required
-              variant="outlined"
-              id="title"
-              label="Title"
-              className={css.formItem}
-            />
-            <ValidationTextField
-              type="number"
-              inputProps={{ max: "2021", min: "1895" }}
-              required
-              variant="outlined"
-              id="year"
-              label="Release Year"
-              className={css.formItem}
-            />
-            <InputLabel htmlFor="format">Format</InputLabel>
-            <ValidationSelectField
-              native
-              required
-              variant="outlined"
-              size="small"
-              inputProps={{
-                name: "format",
-                id: "format",
-              }}
-              className={css.formItem}
-            >
-              <option value="DVD">DVD</option>
-              <option value="VHS">VHS</option>
-              <option value="Blu-Ray">Blu-Ray</option>
-            </ValidationSelectField>
+            <option value="DVD">DVD</option>
+            <option value="VHS">VHS</option>
+            <option value="Blu-Ray">Blu-Ray</option>
+          </ValidationSelectField>
 
-            {idStars.map((e, i) => (
-              <div key={i}>{e}</div>
-            ))}
+          {idStars.map((e, i) => (
+            <div key={i}>{e}</div>
+          ))}
+          <div className={css.wrapperButton}>
+            <Button
+              variant="contained"
+              onClick={() => setAddModalOpen(false)}
+              color="secondary"
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              onClick={() => {}}
+              color="primary"
+            >
+              Add
+            </Button>
+          </div>
+        </form>
+      ) : (
+        <div>
+          <form onSubmit={handleSubmitFile}>
+            <TextField type="file" required id="file" label="File" />
             <div className={css.wrapperButton}>
               <Button
                 variant="contained"
@@ -209,32 +230,9 @@ const AddMovieModal = ({ setAddModalOpen, addMovie }) => {
               </Button>
             </div>
           </form>
-        ) : (
-          <div>
-            <form onSubmit={handleSubmitFile}>
-              <TextField type="file" required id="file" label="File" />
-              <div className={css.wrapperButton}>
-                <Button
-                  variant="contained"
-                  onClick={() => setAddModalOpen(false)}
-                  color="secondary"
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  onClick={() => {}}
-                  color="primary"
-                >
-                  Add
-                </Button>
-              </div>
-            </form>
-          </div>
-        )}
-      </div>
-    </div>
+        </div>
+      )}
+    </Modal>
   );
 };
 

@@ -15,7 +15,7 @@ const Tips = ({ children }) => {
     <svg
       style={{ margin: "5px" }}
       ref={refContainer}
-      class="sl8-icon info"
+      className="sl8-icon info"
       xmlns="http://www.w3.org/2000/svg"
       width={20}
       height={20}
