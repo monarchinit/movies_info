@@ -8,10 +8,22 @@
 .starWrapper {
   display: flex;
   align-items: flex-end;
+  align-items: center;
+}
+
+.title {
+  margin: 20px;
 }
 
 .tabs {
   cursor: pointer;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
+}
+
+.tabsWrapper {
+  margin-bottom: 10px;
+}
+.formItem {
+  margin-bottom: 10px;
 }

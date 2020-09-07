@@ -31,7 +31,7 @@
   padding: 30px;
   width: 30%;
   min-height: 20%;
-  max-height: 70%;
+  max-height: 85%;
   overflow-y: auto;
   background-color: white;
   border-radius: 10px;
@@ -41,4 +41,16 @@
 .item {
   font-size: 30px;
   font-weight: 600;
+}
+
+.tooltip {
+  display: none;
+}
+
+.popper {
+  background-color: royalblue;
+  color: white;
+  max-width: 200px;
+  padding: 5px;
+  border-radius: 5px;
 }
